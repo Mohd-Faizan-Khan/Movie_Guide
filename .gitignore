@@ -1,0 +1,12 @@
+venv/
+__pycache__/
+*.pyc
+notebooks/
+models/
+data/
+*.pkl
+*.csv
+__pycache__/
+.ipynb_checkpoints/
+.DS_Store
+ 
