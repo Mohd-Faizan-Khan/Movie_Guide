@@ -38,7 +38,10 @@ def recommend_post():
 
     data = request.get_json()
 
-    movie = data.get("movie")
+    if not data or "movie" not in data:
+        return jsonify({"error": "Movie name required"}), 400
+
+    movie = data["movie"]
 
     if not movie:
         return jsonify({"error": "Movie name required"}), 400
