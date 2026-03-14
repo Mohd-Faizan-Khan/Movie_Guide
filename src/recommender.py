@@ -24,7 +24,7 @@ def recommend_movies(title: str, top_n: int = 5) -> pd.DataFrame:
 
     title = title.lower()
 
-    matches = movies[movies["title"].str.lower().str.contains(title)]
+    matches = movies[movies["title"].str.contains(title, case=False, na=False)]
 
     if matches.empty:
         return None

@@ -18,17 +18,18 @@ def recommend():
 
     movie = request.args.get("movie")
 
-    if not movie:
-        return jsonify({"error": "Please provide a movie name"}), 400
-
     try:
         recommendations = recommend_movies(movie)
+
+        if recommendations is None:
+            return jsonify({"error": "Movie not found"}), 404
+
         recommendations_list = recommendations["title"].str.title().tolist()
 
         return jsonify({
-            "movie": movie,
-            "recommendations": recommendations_list
-        })
+        "movie": movie,
+        "recommendations": recommendations_list
+    })
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500
