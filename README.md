@@ -1,58 +1,65 @@
- 
 # Movie Guide — Movie Recommendation System
-Built as a beginner Machine Learning project demonstrating content-based recommendation systems using TF-IDF and cosine similarity.
 
-A **content-based movie recommendation system** built using **TF-IDF vectorization** and **cosine similarity**.  
-The system recommends movies similar to a given title by analyzing textual features such as genres, keywords, cast, and movie overview.
+**Movie Guide** is a content-based movie recommendation system built using **TF-IDF vectorization** and **cosine similarity**.  
+The system recommends movies similar to a given title by analyzing textual features such as **genres, keywords, cast, and movie overview**.
 
-This project demonstrates an end-to-end machine learning workflow, including data preprocessing, feature engineering, similarity modeling, and deployment using an interactive web application.
+This project demonstrates an **end-to-end machine learning workflow**, including data preprocessing, feature engineering, model building, API integration, and an interactive web interface.
 
 ---
 
 # Features
 
 - Content-based movie recommendation system
-- TF-IDF based text feature vectorization
-- Cosine similarity for movie matching
-- Interactive web application built with Streamlit
-- Clean modular project architecture
-- Fast recommendations using saved ML artifacts
-- Handles flexible movie title input
+- Text feature engineering using movie metadata
+- TF-IDF vectorization of movie features
+- Cosine similarity based recommendation engine
+- Flask API for recommendation requests
+- Interactive Streamlit web interface
+- Fast recommendations using precomputed similarity matrix
+- Displays movie ratings in recommendation results
+- Modular and clean project architecture
 
 ---
 
 # How the Recommendation System Works
 
-The system follows this pipeline:
+The recommendation engine follows this pipeline:
 
-```
+
 Movie Metadata
-        ↓
+↓
 Text Preprocessing
-        ↓
+↓
 Feature Engineering (combined_features)
-        ↓
+↓
 TF-IDF Vectorization
-        ↓
+↓
 Cosine Similarity Matrix
-        ↓
-Recommendation Function
-        ↓
+↓
+Recommendation Engine
+↓
+Flask API
+↓
 Streamlit Web Interface
-```
 
-When a user enters a movie title:
 
-1. The system finds the movie in the dataset.
-2. It retrieves similarity scores from the cosine similarity matrix.
-3. Movies are ranked based on similarity.
-4. The top recommended movies are returned.
+## Recommendation Flow
+
+When a user selects a movie:
+
+1. The selected movie is matched in the dataset.
+2. The system retrieves similarity scores from the cosine similarity matrix.
+3. Movies are ranked based on similarity scores.
+4. The top N similar movies are returned.
+5. The results are displayed in the Streamlit interface with ratings.
 
 ---
 
 # Dataset
 
-The project uses a movie metadata dataset containing **~5800 movies** with attributes such as:
+The project uses a movie metadata dataset containing **approximately 5800 movies**.
+
+### Key attributes include:
 
 - Movie Title
 - Genres
@@ -62,90 +69,117 @@ The project uses a movie metadata dataset containing **~5800 movies** with attri
 - Vote Average
 - Popularity
 
-After preprocessing, the final dataset contains:
+After preprocessing, the dataset contains approximately:
 
-```
+
 5798 movies
-36 features
-```
+36 processed features
+
 
 ---
 
 # Technologies Used
 
-- Python
-- Pandas
-- Scikit-learn
-- TF-IDF Vectorizer
-- Cosine Similarity
-- Streamlit
+- **Python**
+- **Pandas**
+- **NumPy**
+- **Scikit-learn**
+- **TF-IDF Vectorizer**
+- **Cosine Similarity**
+- **Flask** (API layer)
+- **Streamlit** (web interface)
+
+---
+
+# Project Architecture
+
+The project follows a **modular machine learning architecture**:
+
+
+User Interface (Streamlit)
+↓
+Flask API
+↓
+Recommendation Engine
+↓
+TF-IDF + Cosine Similarity Model
+↓
+Preprocessed Movie Metadata
+
+
+This structure separates **model logic, API handling, and UI**, making the system easier to maintain and extend.
 
 ---
 
 # Project Structure
 
-```
+
 movie_guide/
 │
 ├── assets/
-│   ├── app_home.png
-│   ├── recommendation_results.png
-│   └── recommendation_example.png
+│ ├── app_home.png
+│ ├── recommendation_results.png
+│ └── recommendation_example.png
 │
 ├── data/
-│   └── processed/
-│       ├── movies_final.csv
-│       ├── credits_clean.csv
-│       └── ratings_summary
+│ └── processed/
+│ ├── movies_final.csv
+│ ├── credits_clean.csv
+│ └── ratings_summary
 │
 ├── models/
-│   ├── tfidf_vectorizer.pkl
-│   ├── similarity_matrix.pkl
-│   └── movies_metadata.pkl
+│ ├── tfidf_vectorizer.pkl
+│ ├── similarity_matrix.pkl
+│ └── movies_metadata.pkl
 │
 ├── notebooks/
-│   ├── 01_explore_data.ipynb
-│   ├── 02_cleaning_exploration.ipynb
-│   ├── 03_clean_movie_dataset.ipynb
-│   ├── 04_clean_credits_dataset.ipynb
-│   ├── 05_process_ratings.ipynb
-│   ├── 06_final_dataset.ipynb
-│   └── 07_tfidf_vectorization.ipynb
+│ ├── 01_explore_data.ipynb
+│ ├── 02_cleaning_exploration.ipynb
+│ ├── 03_clean_movie_dataset.ipynb
+│ ├── 04_clean_credits_dataset.ipynb
+│ ├── 05_process_ratings.ipynb
+│ ├── 06_final_dataset.ipynb
+│ └── 07_tfidf_vectorization.ipynb
+│
+├── api/
+│ └── app.py
 │
 ├── src/
-│   ├── __init__.py
-│   ├── recommender.py
-│   └── app.py
+│ ├── init.py
+│ └── recommender.py
 │
+├── streamlit_app.py
 ├── requirements.txt
 ├── README.md
 └── .gitignore
-```
+
+
+---
 
 # Installation
 
-Clone the repository:
+## Clone the repository
 
 ```bash
-git clone https://github.com/yourusername/movie-guide.git
-cd movie-guide
+git clone https://github.com/Mohd-Faizan-Khan/Movie_Guide.git
+cd Movie_Guide
 ```
 
-Create a virtual environment:
+## Create a virtual environment
 
 ```bash
 python -m venv venv
 ```
 
-Activate the environment
+## Activate the environment
 
-Windows:
+### Windows
 
 ```bash
 venv\Scripts\activate
 ```
 
-Install dependencies:
+## Install dependencies
 
 ```bash
 pip install -r requirements.txt
@@ -155,70 +189,70 @@ pip install -r requirements.txt
 
 # Running the Application
 
-Run the Streamlit application:
+## Start the Flask API
 
 ```bash
-streamlit run src/app.py
+python api/app.py
 ```
 
-The application will open automatically in your browser.
+## Start the Streamlit UI
 
----
-
-# Example
-
-User input:
-
-```
-Inception
+```bash
+streamlit run streamlit_app.py
 ```
 
-Recommended movies:
+## Open the browser
 
 ```
-1. Don Jon
-2. The Revenant
-3. (500) Days of Summer
-4. Hesher
-5. Tenet
+http://localhost:8501
 ```
-
-Recommendations are based on **text similarity between movie metadata features**.
 
 ---
 
 # Application Preview
 
-- Movie search interface
-![app_home](image-4.png)
-- Recommendation results table
-![recommendation_results](image-2.png)
-- Recommendation example
-![recommendation_example](image-3.png)
+## Movie Selection Interface
+
+![Movie Selection Interface](assets/app_home.png)
+
+---
+
+## Recommendation Results
+
+![Recommendation Results](assets/recommendation_results.png)
+
+---
+
+## Example Recommendation
+
+![Example Recommendation](assets/recommendation_example.png)
+
 ---
 
 # Future Improvements
 
-Possible enhancements for the project:
+Potential enhancements for this project:
 
-- Add movie posters using TMDB API
-- Genre-based filtering
-- Hybrid recommendation system
-- Collaborative filtering
-- Deploy the application online
+- Add movie posters using **TMDB API**
+- Implement **collaborative filtering**
+- Build a **hybrid recommendation system**
+- Add **genre filters**
+- Improve search with **fuzzy matching**
+- Deploy the system as a **cloud application**
 
 ---
 
 # Key Learnings
 
-Through this project I learned:
+Through this project I gained hands-on experience with:
 
-- Building a **content-based recommender system**
-- Text feature engineering
-- TF-IDF vectorization
-- Cosine similarity modeling
-- Modular machine learning project architecture
-- Developing interactive ML applications using Streamlit
+- Building **content-based recommendation systems**
+- Text feature engineering for **machine learning**
+- **TF-IDF vectorization**
+- **Cosine similarity modeling**
+- **Modular machine learning project design**
+- Building APIs using **Flask**
+- Developing ML interfaces using **Streamlit**
 
 ---
 
@@ -227,4 +261,7 @@ Through this project I learned:
 **Mohd Faizan Khan**
 
 B.Tech — Information Technology  
-Aspiring AI Engineer | Python Developer
+Aspiring **AI Engineer | Python Developer**
+
+GitHub  
+https://github.com/Mohd-Faizan-Khan
