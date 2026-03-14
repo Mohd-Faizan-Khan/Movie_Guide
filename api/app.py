@@ -24,12 +24,18 @@ def recommend():
         if recommendations is None:
             return jsonify({"error": "Movie not found"}), 404
 
-        recommendations_list = recommendations["title"].str.title().tolist()
+        result = []
+
+        for _, row in recommendations.iterrows():
+            result.append({
+            "title": row["title"].title(),
+            "rating": row["vote_average"]
+            })
 
         return jsonify({
-        "movie": movie,
-        "recommendations": recommendations_list
-    })
+            "movie": movie,
+            "recommendations": result
+        })
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500
@@ -58,4 +64,4 @@ def recommend_post():
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host="0.0.0.0", port=10000)

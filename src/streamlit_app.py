@@ -74,9 +74,17 @@ if st.button("Recommend"):
         else:
             st.subheader("Recommended Movies")
 
-            df = pd.DataFrame({
-                "Rank": range(1, len(recommendations) + 1),
-                "Movie": recommendations
-            })
+            df = pd.DataFrame(recommendations)
+
+            df.insert(0, "Rank", range(1, len(df) + 1))
+            df.rename(columns={
+                "title": "Movie",
+                "rating": "Rating"
+            }, inplace=True)
+
+            df["Rating"] = df["Rating"].round(1)
+
+            # reorder columns
+            df = df[["Rank", "Movie", "Rating"]]
 
             st.dataframe(df, use_container_width=True, hide_index = True)
