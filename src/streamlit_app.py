@@ -9,7 +9,7 @@ import sys
 # allow importing from src folder
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
-API_URL = "http://127.0.0.1:5000/recommend"
+API_URL = "https://movie-guide-api.onrender.com/recommend"
 
 
 # ---------- Load Movie Metadata ----------
